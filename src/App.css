@@ -1,42 +1,165 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body {
+    background-color: var(--brand-blue);
+    color: var(--brand-orange);
+    padding: 50px;
+    font-family: Circular, Roboto, Helvetica, Arial, sans-serif;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.header .logo {
+    width: 80px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.hero {
+    margin-top: 50px;
 }
 
-.card {
-  padding: 2em;
+h1 {
+    text-align: center;
+    font-size: 40px;
 }
 
-.read-the-docs {
-  color: #888;
+.calculator-container {
+    margin-top: 100px;
+}
+
+.calculator {
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    border: 3px solid var(--light-blue);
+    border-radius: 20px;
+}
+
+.form-container {
+    width: 50%;
+    padding: 10px 20px;
+    background-color: var(--brand-yellow);
+    color: var(--black);
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.form-container form {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.form-container .form-section {
+    margin-bottom: 40px;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.form-container .rate-input,
+.form-container .deposit-input {
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+.form-container .rate-input:focus,
+.form-container .deposit-input:focus {
+    outline-style: solid;
+    outline-color: var(--brand-orange);
+}
+
+.form-container .deposit-input {
+    padding-left: 20px;
+}
+
+.form-container .deposit-input-wrapper {
+    position: relative;
+}
+
+.form-container .deposit-input-wrapper span {
+    position: absolute;
+    left: 8px;
+    top: 12px;
+}
+
+.form-container .slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 25px;
+    background: var(--white);
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    border-radius: 20px;
+}
+
+.form-container .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: var(--brand-orange);
+    cursor: pointer;
+    border-radius: 100%;
+}
+
+.form-container .frequency {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+.form-container .term-value {
+    color: var(--brand-orange);
+    font-size: 18px;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+
+.form-container button {
+    border: none;
+    background-color: var(--brand-orange);
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.form-container .errors {
+    font-size: 14px;
+    color: var(--red);
+}
+
+.result-container {
+    width: 50%;
+    padding: 10px 20px;
+    background-color: var(--green);
+    color: var(--white);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.result-container .result {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.result-container .label {
+    margin-bottom: 5px;
+    color: var(--brand-yellow);
+}
+
+.result-container .value {
+    font-size: 32px;
+    margin-top: 0px;
+    margin-bottom: 60px;
 }
