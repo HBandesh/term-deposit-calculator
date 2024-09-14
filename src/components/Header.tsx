@@ -1,3 +1,6 @@
+/**
+ * @module Header.tsx Header of the page
+ */
 import UpLogo from '../assets/up.svg';
 
 export const Header = () => {

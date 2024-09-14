@@ -1,6 +1,12 @@
 import { CalculatorData } from "./calculatorSchema";
 
-export const convertMonthsToYears = (months: number) => {
+/**
+ * @function convertMonthsToYears This function converts a number of months 
+ * into a formatted string that represents the equivalent years and remaining months
+ * @param months {number} The number of months input by the user
+ * @returns {string} formatted string that represents the equivalent years and remaining months
+ */
+export const convertMonthsToYears = (months: number): string  => {
     const years = Math.floor(months / 12);
     const remainingMonths = months % 12;
 
@@ -22,6 +28,43 @@ export const convertMonthsToYears = (months: number) => {
     return result;
 }
 
-export const calculateBalance = (data: CalculatorData) => {
 
+/**
+ * @function calculateBalance This function calculates the compound interest on the term deposit
+ * @param data {CalculatorData} deposit amount, interest rate, investment term and the interest paid prequency input by the user
+ * @returns {number} The final balance of the term deposit
+ */
+export const calculateBalance = (data: CalculatorData): number => {
+    const { depositAmount, interestRate, investmentTerm, interestPaid } = data;
+    const termInYears = investmentTerm / 12;
+    const rate = interestRate / 100;
+    let finalBalance = depositAmount;
+
+    // Calculate the compound interest based on the payment frequency
+    // Using the formula for compound interest as:
+    // A=P(1+ r/n)^(n*t)
+    // Where:
+    // A= final amount
+    // P = principal amount (deposit)
+    // r = annual interest rate (as a decimal)
+    // n = number of times the interest is compounded per year
+    // t = time the money is invested or borrowed (in years)
+    switch (interestPaid) {
+      case 'MONTHLY':
+        finalBalance = depositAmount * Math.pow((1 + rate / 12), 12 * termInYears);
+        break;
+      case 'QUATERLY':
+        finalBalance = depositAmount * Math.pow((1 + rate / 4), 4 * termInYears);
+        break;
+      case 'ANNUALY':
+        finalBalance = depositAmount * Math.pow((1 + rate), termInYears);
+        break;
+      case 'MATURITY':
+        finalBalance = depositAmount * (1 + rate * termInYears);
+        break;
+      default:
+        break;
+    }
+
+    return Math.round(finalBalance);
 }

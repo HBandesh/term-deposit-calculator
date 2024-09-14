@@ -1,3 +1,7 @@
+/**
+ * @module Hero.tsx Hero/banner component of the page
+ */
+
 export const Hero = () => {
     return (
         <section className="hero">
