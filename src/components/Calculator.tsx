@@ -19,15 +19,19 @@ const defaultValues: CalculatorData = {
 
 export const Calculator = () => {
     const [balance, setBalance] = useState(0);
+    const [interestEarned, setInterestEarned] = useState(0);
     const { register, handleSubmit, watch, formState: { errors } } = useForm({
         resolver: yupResolver(calculatorSchema),
         mode: 'onBlur',
         defaultValues,
     });
+    const depositAmount = watch('depositAmount');
     const investmentTerm = watch('investmentTerm');
 
     useEffect(() => {
-        setBalance(calculateBalance(defaultValues));
+        const balance = calculateBalance(defaultValues);
+        setBalance(balance);
+        setInterestEarned(balance - depositAmount);
     }, []);
 
     /**
@@ -38,6 +42,7 @@ export const Calculator = () => {
     const formCallBack = (data: CalculatorData) => {
         const balance = calculateBalance(data);
         setBalance(balance);
+        setInterestEarned(balance - depositAmount);
     }
 
 
@@ -87,7 +92,7 @@ export const Calculator = () => {
                     </div>
                     <div className="result">
                         <p className="label">Total interest earned</p>
-                        <p className="value">$ {balance - defaultValues.depositAmount}</p>
+                        <p className="value">$ {interestEarned}</p>
                     </div>
                 </div>
             </div>

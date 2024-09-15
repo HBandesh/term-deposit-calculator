@@ -1,4 +1,5 @@
-import { CalculatorData } from "./calculatorSchema";
+import * as Yup from 'yup';
+import { CalculatorData, calculatorSchema } from "./calculatorSchema";
 
 /**
  * @function convertMonthsToYears This function converts a number of months 
@@ -35,36 +36,46 @@ export const convertMonthsToYears = (months: number): string  => {
  * @returns {number} The final balance of the term deposit
  */
 export const calculateBalance = (data: CalculatorData): number => {
-    const { depositAmount, interestRate, investmentTerm, interestPaid } = data;
-    const termInYears = investmentTerm / 12;
-    const rate = interestRate / 100;
-    let finalBalance = depositAmount;
+    try {
+        //Validating the schema before performaning calculations
+        const validatedData = calculatorSchema.validateSync(data);
+        const { depositAmount, interestRate, investmentTerm, interestPaid } = validatedData;
+        const termInYears = investmentTerm / 12;
+        const rate = interestRate / 100;
+        let finalBalance = depositAmount;
 
-    // Calculate the compound interest based on the payment frequency
-    // Using the formula for compound interest as:
-    // A=P(1+ r/n)^(n*t)
-    // Where:
-    // A= final amount
-    // P = principal amount (deposit)
-    // r = annual interest rate (as a decimal)
-    // n = number of times the interest is compounded per year
-    // t = time the money is invested or borrowed (in years)
-    switch (interestPaid) {
-      case 'MONTHLY':
-        finalBalance = depositAmount * Math.pow((1 + rate / 12), 12 * termInYears);
-        break;
-      case 'QUATERLY':
-        finalBalance = depositAmount * Math.pow((1 + rate / 4), 4 * termInYears);
-        break;
-      case 'ANNUALY':
-        finalBalance = depositAmount * Math.pow((1 + rate), termInYears);
-        break;
-      case 'MATURITY':
-        finalBalance = depositAmount * (1 + rate * termInYears);
-        break;
-      default:
-        break;
+        // Calculate the compound interest based on the payment frequency
+        // Using the formula for compound interest as:
+        // A=P(1+ r/n)^(n*t)
+        // Where:
+        // A= final amount
+        // P = principal amount (deposit)
+        // r = annual interest rate (as a decimal)
+        // n = number of times the interest is compounded per year
+        // t = time the money is invested or borrowed (in years)
+        switch (interestPaid) {
+        case 'MONTHLY':
+            finalBalance = depositAmount * Math.pow((1 + rate / 12), 12 * termInYears);
+            break;
+        case 'QUATERLY':
+            finalBalance = depositAmount * Math.pow((1 + rate / 4), 4 * termInYears);
+            break;
+        case 'ANNUALY':
+            finalBalance = depositAmount * Math.pow((1 + rate), termInYears);
+            break;
+        case 'MATURITY':
+            finalBalance = depositAmount * (1 + rate * termInYears);
+            break;
+        default:
+            break;
+        }
+
+        return Math.round(finalBalance);
+    } catch (error) {
+        if (error instanceof Yup.ValidationError) {
+            throw new Error(`Validation failed: ${error.errors.join(', ')}`);
+          }
+        throw new Error('An unexpected error occurred');
     }
-
-    return Math.round(finalBalance);
+    
 }
