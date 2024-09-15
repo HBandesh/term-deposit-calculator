@@ -45,13 +45,13 @@ This command will run all unit tests using Jest. Make sure to check the test res
 
 
 ## Technical Decisions
-1. **Form Handling with react-hook-form**
+1. **Form Handling with react-hook-form**:
 I chose react-hook-form for its efficient form handling and minimal re-renders. It integrates seamlessly with React and offers excellent performance, which is crucial for user experience in form-heavy applications.
 
-2. **Validation with Yup**
+2. **Validation with Yup**:
 I implemented schema-based validation using Yup to ensure that all form inputs are properly validated before performing any calculations.
 
-3. **Separation of Concerns**
+3. **Separation of Concerns**:
 I structured the application to clearly separate concerns:
 - Form validation is handled by Yup.
 - Form management is handled by react-hook-form.
@@ -59,3 +59,7 @@ I structured the application to clearly separate concerns:
 
 4. **Testing Strategy**
 I wrote unit tests using Jest to ensure the accuracy of both validation and balance calculation logic. The tests cover edge cases for deposit amounts, interest rates, and other input values, ensuring that errors are caught and handled gracefully.
+
+## Future improvements
+- **Improved UI/UX**: While the UI is functional, it could be enhanced to provide better feedback and a more visually appealing experience.
+- **Additional Tests**: More comprehensive tests for various edge cases could be added to further solidify the correctness of the calculations.
